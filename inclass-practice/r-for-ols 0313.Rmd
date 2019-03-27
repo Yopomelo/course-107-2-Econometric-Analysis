@@ -69,8 +69,9 @@ Journals %>% mutate(citeprice=price/citations) -> journals
 library(psych)
 journals %>% 
   select(citeprice,subs) %>%      #這行多了%>%因為這樣才會存起來，並不是只顯示出來
-  pairs.panels()
+  pairs.panels()   #打了這個為了可畫出四個圖
 ```
+
 ```{r}
 # traditional usage
 select(journals, citeprice, subs) -> tempDF
@@ -98,7 +99,7 @@ journals %>%
 ```{r ols-paircorr2-r}
 journals %>% 
   select(citeprice,subs) %>%
-  mutate_all(log) %>%     # mutate:改變，把所有變數取log
+  mutate_all(log) %>%     # mutate:改變，把所有變數取log(R中內定為自然對數，你可以改)
   pairs.panels()     # pairs.panels一定要dataframe
 
 # note：多用 ?dplyr::mutate_all 查函數的使用
