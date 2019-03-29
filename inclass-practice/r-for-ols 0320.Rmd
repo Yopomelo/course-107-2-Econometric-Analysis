@@ -156,10 +156,33 @@ coeftest(model_2, vcov. = vcovHC, type="HC1") -> model_2_coeftest
 # HC (heteroscedasticity cross-section)
 # if data is not 橫斷面，不可直接用sandwich  ???check
 # vcovHAC (用於非橫斷面，autocorrelation)
+# HW : VAR(beta_hat)=sigma^2(X'X) inverse    考試可能會考
 
+```
+
+
+```{r}
+# traditional method (using matrix)
+stargazer(model_1, model_2, 
+          se=list(
+          model_1_coeftest[,"Std. Error"], 
+          model_2_coeftest[,2]),      #2可改成colomn名
+          type="html",
+          align=TRUE)     # align問你要不要對齊
+```
+
+```{r}
+# tidy method
+tidy(model_1_coeftest) -> model1CoeftestDF
+tidy(model_2_coeftest) -> model2CoeftestDF
 
 stargazer(model_1, model_2, 
-          se=list(model_1_coeftest[,"Std. Error"], model_2_coeftest[,2]),
+          se=list(
+          model1CoeftestDF$std.error, 
+          model2CoeftestDF$2),
           type="html",
           align=TRUE)
 ```
+
+
+
